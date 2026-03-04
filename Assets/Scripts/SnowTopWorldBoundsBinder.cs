@@ -18,12 +18,6 @@ public class SnowTopWorldBoundsBinder : MonoBehaviour
         _targetRenderer = GetComponent<Renderer>();
     }
 
-    private void OnEnable()
-    {
-        EnsureReferences();
-        ApplyBounds();
-    }
-
     private void OnValidate()
     {
         EnsureReferences();
@@ -39,27 +33,7 @@ public class SnowTopWorldBoundsBinder : MonoBehaviour
 
         ApplyBounds();
     }
-
-    [ContextMenu("Update Snow Bounds Now")]
-    private void UpdateSnowBoundsNow()
-    {
-        EnsureReferences();
-        ApplyBounds();
-    }
-
-    private void EnsureReferences()
-    {
-        if (_targetRenderer == null)
-        {
-            _targetRenderer = GetComponent<Renderer>();
-        }
-
-        if (_propertyBlock == null)
-        {
-            _propertyBlock = new MaterialPropertyBlock();
-        }
-    }
-
+    
     private void ApplyBounds()
     {
         if (_targetRenderer == null)
@@ -80,5 +54,25 @@ public class SnowTopWorldBoundsBinder : MonoBehaviour
         _propertyBlock.SetFloat(MinWorldY, minY);
         _propertyBlock.SetFloat(MaxWorldY, maxY);
         _targetRenderer.SetPropertyBlock(_propertyBlock);
+    }
+
+    [ContextMenu("Update Snow Bounds Now")]
+    private void UpdateSnowBoundsNow()
+    {
+        EnsureReferences();
+        ApplyBounds();
+    }
+
+    private void EnsureReferences()
+    {
+        if (_targetRenderer == null)
+        {
+            _targetRenderer = GetComponent<Renderer>();
+        }
+
+        if (_propertyBlock == null)
+        {
+            _propertyBlock = new MaterialPropertyBlock();
+        }
     }
 }

@@ -22,7 +22,6 @@ Shader "Custom/InteractiveSnow/Snow"
             LOD 200
 
             CGPROGRAM
-            // Physically based Standard lighting model, and enable shadows on all light types
             #pragma surface surf Standard fullforwardshadows vertex:vert addshadow tessellate:tess nolightmap
 
             float _TessellationAmount;
@@ -52,11 +51,8 @@ Shader "Custom/InteractiveSnow/Snow"
             float _HeightAmount;
             float _NormalMapAmount;
 
-            // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
-            // See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
-            // #pragma instancing_options assumeuniformscaling
+
             UNITY_INSTANCING_BUFFER_START(Props)
-                // put more per-instance properties here
             UNITY_INSTANCING_BUFFER_END(Props)
 
 
@@ -65,19 +61,19 @@ Shader "Custom/InteractiveSnow/Snow"
                 float offset = tex2Dlod(_HeightMap, float4(v.texcoord.xy, 0, 0)).r * _HeightAmount;
                 v.vertex.y += offset;
             }
-            void surf(Input IN, inout SurfaceOutputStandard o)
+            void surf(Input IN, inout SurfaceOutputStandard output)
             {
                 float height = tex2D(_HeightMap, IN.uv_MainTex).r;
-                fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * lerp(_BottomColor, _Color, height) * _NormalMapAmount;
+                fixed4 color = tex2D(_MainTex, IN.uv_MainTex) * lerp(_BottomColor, _Color, height) * _NormalMapAmount;
 
-                o.Albedo = c.rgb;
-                o.Normal = UnpackNormal(tex2D(_NormalMap, IN.uv_NormalMap));
+                output.Albedo = color.rgb;
+                output.Normal = UnpackNormal(tex2D(_NormalMap, IN.uv_NormalMap));
 
                 fixed4 metal = tex2D(_MetallicGlossMap, IN.uv_MainTex);
-                o.Metallic = metal.r;
+                output.Metallic = metal.r;
 
-                o.Smoothness = metal.a * _Glossiness;
-                o.Alpha = c.a;
+                output.Smoothness = metal.a * _Glossiness;
+                output.Alpha = color.a;
             }
             ENDCG
         }

@@ -36,12 +36,12 @@ public class InteractiveSnow : MonoBehaviour
 
     private void Initialize()
     {
-        var material = new Material(_snowMaterial);
+        Material material = new Material(_snowMaterial);
 
         _heightMapUpdate = CreateHeightMapUpdate(_snowHeightMapUpdate, _stepPrint);
         _snowHeightMap = CreateHeightMap(512, 512, _heightMapUpdate);
 
-        var terrain = gameObject.GetComponent<Terrain>();
+        Terrain terrain = gameObject.GetComponent<Terrain>();
         terrain.materialTemplate = material;
         terrain.materialTemplate.SetTexture(HeightMap, _snowHeightMap);
 
@@ -50,7 +50,7 @@ public class InteractiveSnow : MonoBehaviour
 
     private void DrawTrails()
     {
-        var trail = _trailsPositions[_index];
+        Transform trail = _trailsPositions[_index];
 
         Ray ray = new Ray(trail.transform.position, Vector3.down);
 
@@ -74,7 +74,7 @@ public class InteractiveSnow : MonoBehaviour
 
     private CustomRenderTexture CreateHeightMap(int weight, int height, Material material)
     {
-        var texture = new CustomRenderTexture(weight, height);
+        CustomRenderTexture texture = new CustomRenderTexture(weight, height);
 
         texture.dimension = TextureDimension.Tex2D;
         texture.format = RenderTextureFormat.ARGB32;
@@ -87,7 +87,7 @@ public class InteractiveSnow : MonoBehaviour
 
     private Material CreateHeightMapUpdate(Shader shader, Texture stepPrint)
     {
-        var material = new Material(shader);
+        Material material = new Material(shader);
         material.SetTexture(DrawBrush, stepPrint);
         material.SetVector(DrawPosition, new Vector4(-1, -1, 0, 0));
         return material;

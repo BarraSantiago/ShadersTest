@@ -77,18 +77,18 @@ Material:
     - _Metallic: 0.38
     - _MinWorldY: 0
     - _Mode: 0
-    - _NoiseInfluence: 0.268
-    - _NoiseScale: 4
+    - _NoiseInfluence: 0.36
+    - _NoiseScale: 12.99
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _SlopeInfluence: 0.148
+    - _SlopeInfluence: 0.085
     - _SlopePower: 3.94
     - _SmoothnessTextureChannel: 0
     - _SnowAmount: 0.746
     - _SnowSmoothness: 0.401
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TopSoftness: 0.152
+    - _TopSoftness: 0.061
     - _TopStart: 0.627
     - _UVSec: 0
     - _ZWrite: 1
